@@ -10,7 +10,7 @@ class Game implements SceneStack {
         this.scenes = [ ];
     }
 
-    private mainLoop(time: number) {
+    private mainLoop(time: number): void {
         const FPS = 60;
 
         if (time - this.lastUpdate > 1000 / FPS) {
@@ -25,14 +25,14 @@ class Game implements SceneStack {
         window.requestAnimationFrame((t) => this.mainLoop(t));
     }
 
-    private update(dt: number) {
+    private update(dt: number): void {
         let scene = this.scenes[0];
         if (scene) {
             scene.update(dt, this);
         }
     }
 
-    private render(dt: number) {
+    private render(dt: number): void {
         let c = this.ctx;
         c.clearRect(0, 0, c.canvas.width, c.canvas.height);
 
@@ -42,20 +42,20 @@ class Game implements SceneStack {
         }
     }
 
-    pushScene(scene: Scene) {
+    pushScene(scene: Scene): void {
         this.scenes.push(scene);
     }
 
-    popScene() {
+    popScene(): void {
         this.scenes.pop();
     }
 
-    swapScene(scene: Scene) {
+    swapScene(scene: Scene): void {
         this.scenes.pop();
         this.scenes.push(scene);
     }
 
-    start() {
+    start(): void {
         this.pushScene(new MainScene());
         window.requestAnimationFrame((t) => this.mainLoop(t));
     }

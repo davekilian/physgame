@@ -6,11 +6,11 @@ class MainScene implements Scene {
         this.time = 0;
     }
 
-    update(dt: number, stack: SceneStack) {
+    update(dt: number, stack: SceneStack): void {
         this.time += dt;
     }
 
-    render(t: number, c: CanvasRenderingContext2D) {
+    render(t: number, c: CanvasRenderingContext2D): void {
         let shade = .5 + .5 * Math.sin(this.time);
         let color = Math.floor(255 * shade);
         c.fillStyle = `rgb(${color}, 255, 0)`;

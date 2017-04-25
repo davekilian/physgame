@@ -1,11 +1,11 @@
 
 interface Scene {
-    update(timeDelta: number, stack: SceneStack);
-    render(timeDelta: number, context: CanvasRenderingContext2D);
+    update(timeDelta: number, stack: SceneStack): void;
+    render(timeDelta: number, context: CanvasRenderingContext2D): void;
 }
 
 interface SceneStack {
-    pushScene(scene: Scene);
-    popScene();
-    swapScene(scene: Scene);
+    pushScene(scene: Scene): void;
+    popScene(): void;
+    swapScene(scene: Scene): void;
 }
