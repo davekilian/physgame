@@ -1,13 +1,13 @@
 
-class Game {
+class Game implements SceneStack {
     lastUpdate: number;
     ctx: CanvasRenderingContext2D;
-    debugTime: 0;
+    scenes: Scene[];
 
     constructor() {
         this.lastUpdate = 0;
         this.ctx = (<HTMLCanvasElement>document.getElementById('physgame')).getContext('2d');
-        this.debugTime = 0;
+        this.scenes = [ ];
     }
 
     private mainLoop(time: number) {
@@ -25,20 +25,38 @@ class Game {
         window.requestAnimationFrame((t) => this.mainLoop(t));
     }
 
-    private update(t: number) {
-        this.debugTime += t;
+    private update(dt: number) {
+        let scene = this.scenes[0];
+        if (scene) {
+            scene.update(dt, this);
+        }
     }
 
-    private render(t: number) {
+    private render(dt: number) {
         let c = this.ctx;
         c.clearRect(0, 0, c.canvas.width, c.canvas.height);
 
-        let color = Math.floor(255 * (.5 + .5 * Math.sin(this.debugTime)));
-        c.fillStyle = `rgb(${color}, 0, 0)`;
-        c.fillRect(0, 0, c.canvas.width, c.canvas.height);
+        let scene = this.scenes[0];
+        if (scene) {
+            scene.render(dt, this.ctx);
+        }
+    }
+
+    pushScene(scene: Scene) {
+        this.scenes.push(scene);
+    }
+
+    popScene() {
+        this.scenes.pop();
+    }
+
+    swapScene(scene: Scene) {
+        this.scenes.pop();
+        this.scenes.push(scene);
     }
 
     start() {
+        this.pushScene(new MainScene());
         window.requestAnimationFrame((t) => this.mainLoop(t));
     }
 }
