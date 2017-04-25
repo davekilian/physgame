@@ -5,8 +5,10 @@ class Game implements SceneStack {
     scenes: Scene[];
 
     constructor() {
+        let canvas = document.getElementById('physgame') as HTMLCanvasElement;
+
         this.lastUpdate = 0;
-        this.ctx = (<HTMLCanvasElement>document.getElementById('physgame')).getContext('2d');
+        this.ctx = canvas.getContext('2d');
         this.scenes = [ ];
     }
 
