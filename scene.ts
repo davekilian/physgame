@@ -1,11 +1,7 @@
 
 interface Scene {
-    update(timeDelta: number, stack: SceneStack): void;
-    render(timeDelta: number, context: CanvasRenderingContext2D): void;
+    update(dt: number): void;
+    render(dt: number, context: CanvasRenderingContext2D): void;
 }
-
-interface SceneStack {
-    pushScene(scene: Scene): void;
-    popScene(): void;
-    swapScene(scene: Scene): void;
-}
+// TODO: change this to an abstract class with a protected API
+// to get the kernel instance

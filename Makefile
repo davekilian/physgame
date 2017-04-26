@@ -1,7 +1,9 @@
 
-SOURCES = game.ts \
-		  mainscene.ts \
-		  scene.ts \
+SOURCES = \
+	game.ts \
+	kernel.ts \
+	mainscene.ts \
+	scene.ts \
 
 OBJECTS = $(patsubst %.ts, %.js, $(SOURCES))
 

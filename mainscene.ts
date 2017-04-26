@@ -6,7 +6,7 @@ class MainScene implements Scene {
         this.time = 0;
     }
 
-    update(dt: number, stack: SceneStack): void {
+    update(dt: number): void {
         this.time += dt;
     }
 
