@@ -1,9 +1,9 @@
 
 class KernelScheduler {
-    callback: (dt: number) => void;
-    targetFPS: number;
-    lastTick: number;
-    executing: boolean;
+    private callback: (dt: number) => void;
+    private targetFPS: number;
+    private lastTick: number;
+    private executing: boolean;
 
     constructor(callback: (number) => void, 
                 targetFPS: number) {
@@ -45,9 +45,15 @@ class KernelScheduler {
 }
 
 class Kernel {
-    canvas: HTMLCanvasElement;
-    scheduler: KernelScheduler;
-    scenes: Scene[];
+    private static currentInstance: Kernel;
+
+    static current(): Kernel {
+        return Kernel.currentInstance;
+    }
+
+    private canvas: HTMLCanvasElement;
+    private scheduler: KernelScheduler;
+    private scenes: Scene[];
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
@@ -58,6 +64,8 @@ class Kernel {
     exec(scene: Scene) {
         this.scenes.push(scene);
         this.scheduler.start();
+
+        Kernel.currentInstance = this;
     }
 
     private tick(dt: number): void {
