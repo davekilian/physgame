@@ -1,9 +1,11 @@
 
 SOURCES = \
 	game.ts \
+	input.ts \
 	kernel.ts \
 	mainscene.ts \
 	scene.ts \
+	update.ts \
 
 OBJECTS = $(patsubst %.ts, %.js, $(SOURCES))
 

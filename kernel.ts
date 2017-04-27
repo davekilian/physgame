@@ -54,11 +54,15 @@ class Kernel {
     private canvas: HTMLCanvasElement;
     private scheduler: KernelScheduler;
     private scenes: Scene[];
+    private pre: Updater;
+    private post: Updater;
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
         this.scheduler = new KernelScheduler((dt) => this.tick(dt), 60);
         this.scenes = [ ];
+        this.pre = new Updater();
+        this.post = new Updater();
     }
 
     exec(scene: Scene) {
@@ -69,14 +73,14 @@ class Kernel {
     }
 
     private tick(dt: number): void {
-        // TODO: preUpdate
+        this.pre.update(dt);
 
         let scene = this.scene();
         if (scene != null) {
             scene.update(dt);
         }
 
-        // TODO: postUpdate
+        this.post.update(dt);
 
         let c = this.canvas.getContext('2d');
         c.clearRect(0, 0, c.canvas.width, c.canvas.height);
@@ -106,5 +110,13 @@ class Kernel {
     swap(scene: Scene) {
         this.scenes.pop();
         this.scenes.push(scene);
+    }
+
+    preUpdate() {
+        return this.pre;
+    }
+
+    postUpdate() {
+        return this.pre;
     }
 }
