@@ -53,6 +53,7 @@ class Kernel {
 
     private canvas: HTMLCanvasElement;
     private scheduler: KernelScheduler;
+    private keyboardDevice: Keyboard;
     private scenes: Scene[];
     private pre: Updater;
     private post: Updater;
@@ -60,6 +61,7 @@ class Kernel {
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
         this.scheduler = new KernelScheduler((dt) => this.tick(dt), 60);
+        this.keyboardDevice = new Keyboard(canvas);
         this.scenes = [ ];
         this.pre = new Updater();
         this.post = new Updater();
@@ -75,6 +77,8 @@ class Kernel {
     private tick(dt: number): void {
         this.pre.update(dt);
 
+        this.keyboardDevice.update(dt);
+
         let scene = this.scene();
         if (scene != null) {
             scene.update(dt);
@@ -88,6 +92,10 @@ class Kernel {
         if (scene != null) {
             scene.render(dt, c);
         }
+    }
+
+    keyboard(): Keyboard {
+        return this.keyboardDevice;
     }
 
     scene(): Scene {
