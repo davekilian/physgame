@@ -3,7 +3,7 @@ SOURCES = \
 	game.ts \
 	input.ts \
 	kernel.ts \
-	mainscene.ts \
+	testscene.ts \
 	scene.ts \
 	update.ts \
 

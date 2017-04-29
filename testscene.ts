@@ -1,5 +1,5 @@
 
-class MainScene implements Scene {
+class TestScene implements Scene {
     time: number;
     color: number[];
 
